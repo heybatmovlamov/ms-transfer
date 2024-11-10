@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "ms-user",url = "http://ms-auth")
 public interface UserFeignClient {
 
-    @GetMapping("{finCode}")
+    @GetMapping("/{finCode}")
     UserDto findUserByFinCode(@PathVariable("finCode") String finCode);
 
 }

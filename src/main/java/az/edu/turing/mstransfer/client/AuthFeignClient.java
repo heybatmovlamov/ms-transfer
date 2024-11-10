@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @Service
 @FeignClient(name = "ms-auth", url = "http://ms-auth")
 public interface AuthFeignClient {
+
     @GetMapping("/finCode")
     String getFinCode(@RequestHeader("Authorization") String authToken);
 }

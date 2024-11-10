@@ -1,7 +1,6 @@
 package az.edu.turing.mstransfer.service;
 
 import az.edu.turing.mstransfer.client.AccountFeignClient;
-import az.edu.turing.mstransfer.model.TransferRequest;
 import az.edu.turing.mstransfer.model.dto.AccountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,8 @@ public class AccountService {
         return accountFeignClient.findByCartNumber(cartNumber);
     }
 
-    public void updateAccountBalance(String  cartNumber , BigDecimal amount) {
-        accountFeignClient.updateAccountBalance(transferRequest);
+    public void  updateAccountBalance(String cartNumber , BigDecimal amount ) {
+        accountFeignClient.updateAccountBalance(cartNumber, amount);
     }
+
 }

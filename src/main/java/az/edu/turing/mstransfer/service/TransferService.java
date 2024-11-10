@@ -15,13 +15,13 @@ import java.util.List;
 public class TransferService {
    private final UserService userService;
    private final AccountService accountService;
-    @Transactional//todo
+
+    @Transactional
     public TransferRequest transfer(String finCode, TransferRequest accountTransferRequest) {
         UserDto user = userService.getUser(finCode);
-//        Optional<UserEntity> myAccountEntity = userRepository.findByFinCode(finCode);
         List<AccountDto> accounts = user.getAccounts();
 
-        AccountDto matchingAccount = accounts.stream()
+        accounts.stream()
                 .filter(a -> a.getCartNumber().equals(accountTransferRequest.getMyCartNumber()))
                 .findFirst().orElseThrow(() -> new RuntimeException("Invalid cart number"));
 
