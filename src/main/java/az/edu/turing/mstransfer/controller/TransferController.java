@@ -7,14 +7,10 @@ import az.edu.turing.mstransfer.service.TransferService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-
 public class TransferController {
     private final AuthService authService;
     private final TransferService transferService;
@@ -24,8 +20,7 @@ public class TransferController {
             @RequestHeader("Authorization") String auth,
             @Valid @RequestBody TransferRequest requestDto
     ) {
-        String finCode = authService.getFinCodeFromAuth(auth);  // ms-auth ilə finCode əldə olunur
+        String finCode = authService.getFinCodeFromAuth(auth);
         return ResponseEntity.ok(transferService.transfer(finCode, requestDto));
     }
-
 }
