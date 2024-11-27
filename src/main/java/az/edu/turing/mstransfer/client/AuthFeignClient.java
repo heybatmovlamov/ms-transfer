@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 @Service
-@FeignClient(name = "ms-auth", url = "http://ms-auth")
+@FeignClient(name = "ms-auth", url = "http://localhost:8082")
 public interface AuthFeignClient {
 
     @GetMapping("/finCode")

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
-@FeignClient(name = "ms-account", url ="http://ms-account")
+@FeignClient(name = "ms-account", url ="http://localhost:8085")
 public interface AccountFeignClient {
 
     @GetMapping("/{cartNumber}")

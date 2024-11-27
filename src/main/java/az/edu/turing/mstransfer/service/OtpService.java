@@ -29,8 +29,9 @@ public class OtpService {
         sendOtpEmail(fin, otp);
         return otp;
     }
-    public void sendOtpToQueue(String otp) {
-        rabbitTemplate.convertAndSend("otpQueue", otp);
+    public void sendOtpToQueue(String finCode,Integer otp) {
+        String message = finCode + ":" + otp;
+        rabbitTemplate.convertAndSend("otpQueue", message);
     }
 
     public boolean validateOtp(String finCode, Integer inputOtp) {

@@ -15,12 +15,22 @@ public class TransferController {
     private final AuthService authService;
     private final TransferService transferService;
 
+//    @PostMapping("/transfer")
+//    public ResponseEntity<TransferRequest> transferMoney(
+//            @RequestHeader("Authorization") String auth,
+//            @Valid @RequestBody TransferRequest requestDto
+//    ) {
+//        String finCode = authService.getFinCodeFromAuth(auth);
+//        return ResponseEntity.ok(transferService.transfer(finCode, requestDto));
+//    }
+
     @PostMapping("/transfer")
-    public ResponseEntity<TransferRequest> transferMoney(
+    public ResponseEntity<String> initiateTransfer(
             @RequestHeader("Authorization") String auth,
             @Valid @RequestBody TransferRequest requestDto
     ) {
         String finCode = authService.getFinCodeFromAuth(auth);
-        return ResponseEntity.ok(transferService.transfer(finCode, requestDto));
+        transferService.transfer(finCode, requestDto);
+        return ResponseEntity.ok("OTP göndərildi. Transfer təsdiqlənməsi gözlənilir.");
     }
 }

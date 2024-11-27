@@ -3,6 +3,7 @@ package az.edu.turing.mstransfer.controller;
 import az.edu.turing.mstransfer.service.AuthService;
 import az.edu.turing.mstransfer.service.OtpService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,11 +11,10 @@ import org.springframework.web.bind.annotation.*;
 public class OtpController {
     private final AuthService authService;
     private final OtpService otpService;
-
+    //istifadəçi otp göndərir
     @PostMapping("/otp")
-    public Boolean otpSender(@RequestHeader String auth , @RequestParam Integer otp) {
+    public void otpSender(@RequestHeader String auth , @RequestParam Integer otp) {
         String fin = authService.getFinCodeFromAuth(auth);
-        return otpService.validateOtp(fin, otp);
-
+        otpService.sendOtpToQueue(fin,otp);
     }
 }

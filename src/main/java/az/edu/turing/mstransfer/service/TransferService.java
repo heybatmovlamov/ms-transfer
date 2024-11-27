@@ -15,6 +15,7 @@ import java.util.List;
 public class TransferService {
    private final UserService userService;
    private final AccountService accountService;
+   private final OtpService otpService;
 
     public TransferRequest transfer(String finCode, TransferRequest transferRequest) {
         UserDto user = userService.getUser(finCode);
@@ -33,16 +34,24 @@ public class TransferService {
                 .orElseThrow(() -> new RuntimeException("Cart number not found"));
 
         if (myAccount.getBalance().compareTo(transferRequest.getAmount()) >= 0) {
-            myAccount.setBalance(myAccount.getBalance().subtract(transferRequest.getAmount()));
-            transferAccount.setBalance(transferAccount.getBalance().add(transferRequest.getAmount()));
+            transferPending(finCode);
 
-            accountService.updateBalance(myAccount.getCartNumber(),myAccount.getBalance());
-            accountService.updateBalance(transferAccount.getCartNumber(),transferAccount.getBalance());
+//            myAccount.setBalance(myAccount.getBalance().subtract(transferRequest.getAmount()));
+//            transferAccount.setBalance(transferAccount.getBalance().add(transferRequest.getAmount()));
+//
+//            accountService.updateBalance(myAccount.getCartNumber(),myAccount.getBalance());
+//            accountService.updateBalance(transferAccount.getCartNumber(),transferAccount.getBalance());
 
-            log.info("Transfer tamamlandı");
+
         } else {
             log.info("Balans kifayət etmir");
         }
         return transferRequest;
     }
+
+
+    public void transferPending(String finCode ) {
+        otpService.generateAndSendOtp(finCode);
+    }
+
 }
